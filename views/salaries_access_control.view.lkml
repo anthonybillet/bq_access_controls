@@ -2,6 +2,8 @@ view: salaries_access_control {
   sql_table_name: `ant-billet-looker-core-argolis.BQ_Access_Controls.Salaries_access_control` ;;
   view_label: "Salaries"
 
+  drill_fields: [email,first_name,last_name,department,country,currency, salary,salary_positioning, seniority, last_perf, commute_time ]
+
   dimension: commute_time {
     type: number
     sql: ${TABLE}.commute_time ;;
@@ -69,10 +71,12 @@ view: salaries_access_control {
     value_format_name: decimal_2
     type: number
     sql: 1.0*${total_commute_time}/NULLIF(${count_employees},0) ;;
+    drill_fields: [total_commute_time,count_employees]
   }
   measure: avg_salary_per_employee {
     value_format_name: decimal_2
     type: number
     sql: 1.0*${total_salary}/NULLIF(${count_employees},0) ;;
+    drill_fields: [total_salary,count_employees]
   }
 }
